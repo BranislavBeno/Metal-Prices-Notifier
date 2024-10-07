@@ -2,35 +2,30 @@ package com.serverless.aws_lambda_first.mail;
 
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.sesv2.SesV2Client;
-import software.amazon.awssdk.services.sesv2.model.Body;
-import software.amazon.awssdk.services.sesv2.model.Content;
-import software.amazon.awssdk.services.sesv2.model.Destination;
-import software.amazon.awssdk.services.sesv2.model.EmailContent;
-import software.amazon.awssdk.services.sesv2.model.Message;
 import software.amazon.awssdk.services.sesv2.model.SendEmailRequest;
 import software.amazon.awssdk.services.sesv2.model.SesV2Exception;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.thymeleaf.context.Context;
+import org.thymeleaf.spring6.ISpringTemplateEngine;
 
 public class EmailSender {
 
    private static final Logger LOGGER = LoggerFactory.getLogger(EmailSender.class);
 
-   private static final String BODY_HTML = """
-         <html>
-             <head></head>
-             <body>
-                 <h1>Hello!</h1>
-                 <p> See the list of customers.</p>
-             </body>
-         </html>""";
+   private static final DateTimeFormatter DATE_FORMATTER_DD_MM_YYYY = DateTimeFormatter.ofPattern("dd.MM.yyyy");
 
    private final String sender;
    private final String recipient;
+   private final ISpringTemplateEngine emailTemplateEngine;
 
-   public EmailSender(String sender, String recipient) {
+   public EmailSender(String sender, String recipient, ISpringTemplateEngine emailTemplateEngine) {
       this.sender = sender;
       this.recipient = recipient;
+      this.emailTemplateEngine = emailTemplateEngine;
    }
 
    public void sendMail() {
@@ -39,21 +34,25 @@ public class EmailSender {
       send(sesv2Client);
    }
 
+   private String createMailBody(String reportDate) {
+      Context ctx = new Context(Locale.US);
+      ctx.setVariable("name", "Hugo");
+      ctx.setVariable("reportDate", reportDate);
+
+      return emailTemplateEngine.process("email-template.html", ctx);
+   }
+
    private void send(SesV2Client client) {
-      Destination destination = Destination.builder().toAddresses(recipient).build();
+      String reportDate = LocalDate.now().format(DATE_FORMATTER_DD_MM_YYYY);
+      String subject = String.format("Sales Report for %s", reportDate);
 
-      Content content = Content.builder().data(BODY_HTML).build();
-
-      Content sub = Content.builder().data("test").build();
-
-      Body body = Body.builder().html(content).build();
-
-      Message msg = Message.builder().subject(sub).body(body).build();
-
-      EmailContent emailContent = EmailContent.builder().simple(msg).build();
-
-      SendEmailRequest emailRequest =
-            SendEmailRequest.builder().destination(destination).content(emailContent).fromEmailAddress(sender).build();
+      SendEmailRequest emailRequest = SendEmailRequest.builder()
+            .destination(d -> d.toAddresses(recipient))
+            .content(
+               c -> c.simple(
+                  m -> m.subject(s -> s.data(subject)).body(b -> b.html(d -> d.data(createMailBody(reportDate))))))
+            .fromEmailAddress(sender)
+            .build();
 
       try {
          LOGGER.info("Attempting to send an email through Amazon SES " + "using the AWS SDK for Java...");
