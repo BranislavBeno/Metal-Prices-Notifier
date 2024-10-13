@@ -7,19 +7,20 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.thymeleaf.spring6.ISpringTemplateEngine;
 
+import java.util.List;
 import java.util.function.Supplier;
 
 @Configuration
 public class FunctionConfiguration {
 
-    @Value("${custom.mail.recipient}")
-    private String recipient;
+    @Value("${custom.mail.recipients}")
+    private List<String> recipients;
     @Value("${custom.mail.sender}")
     private String sender;
 
     @Bean
     public Supplier<Void> sendMail(@Autowired ISpringTemplateEngine emailTemplateEngine) {
-        new EmailSender(sender, recipient, emailTemplateEngine).sendMail();
+        new EmailSender(sender, recipients, emailTemplateEngine).sendMail();
 
         return () -> null;
     }

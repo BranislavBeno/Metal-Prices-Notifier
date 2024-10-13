@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: metal-prices
+
+custom:
+  mail:
+    sender: no-reply@b-l-s.click
+    recipients:
+      - brano.beno@gmail.com
+      - hugo.rad@gmail.com

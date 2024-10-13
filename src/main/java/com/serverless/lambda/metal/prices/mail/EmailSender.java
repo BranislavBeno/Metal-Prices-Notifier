@@ -11,6 +11,7 @@ import software.amazon.awssdk.services.sesv2.model.SesV2Exception;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.Locale;
 
 public class EmailSender {
@@ -20,12 +21,12 @@ public class EmailSender {
     private static final DateTimeFormatter DATE_FORMATTER_DD_MM_YYYY = DateTimeFormatter.ofPattern("dd.MM.yyyy");
 
     private final String sender;
-    private final String recipient;
+    private final List<String> recipients;
     private final ISpringTemplateEngine emailTemplateEngine;
 
-    public EmailSender(String sender, String recipient, ISpringTemplateEngine emailTemplateEngine) {
+    public EmailSender(String sender, List<String> recipients, ISpringTemplateEngine emailTemplateEngine) {
         this.sender = sender;
-        this.recipient = recipient;
+        this.recipients = recipients;
         this.emailTemplateEngine = emailTemplateEngine;
     }
 
@@ -48,7 +49,7 @@ public class EmailSender {
         String subject = String.format("Sales Report for %s", reportDate);
 
         SendEmailRequest emailRequest = SendEmailRequest.builder()
-                .destination(d -> d.toAddresses(recipient))
+                .destination(d -> d.toAddresses(recipients))
                 .content(
                         c -> c.simple(
                                 m -> m.subject(s -> s.data(subject)).body(b -> b.html(d -> d.data(createMailBody(reportDate))))))
