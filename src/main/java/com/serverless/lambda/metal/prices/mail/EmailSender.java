@@ -47,7 +47,7 @@ public class EmailSender {
 
     private void send(SesV2Client client) {
         String reportDate = LocalDate.now().format(DATE_FORMATTER_DD_MM_YYYY);
-        String subject = String.format("Sales Report for %s", reportDate);
+        String subject = String.format("Actual metal prices for %s", reportDate);
 
         SendEmailRequest emailRequest = SendEmailRequest.builder()
                 .destination(d -> d.toAddresses(recipients))
