@@ -3,59 +3,53 @@
 
 <head>
     <title>Template Metal Prices Title</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 </head>
 
 <body>
 <p>Hello <span th:text="${name}">buddy</span>,</p>
-<p>Here are the actual metal prices for <span th:text="${reportDate}">1.1.1970</span>.</p>
-<div class="container-sm ms-0">
-    <div class="row">
-        <div class="col-md-3 pe-5">
-            <table class="table table-striped table-hover table-bordered table-sm">
-                <caption style="font-size:14px; font-weight:bold;">METAL PRICES</caption>
-                <thead class="table-dark">
-                <tr>
-                    <th scope="col">Metal</th>
-                    <th scope="col">Price in USD</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <td>Aluminium</td>
-                    <td>9.105511528029</td>
-                </tr>
-                <tr>
-                    <td>Copper</td>
-                    <td>3.171997443513</td>
-                </tr>
-                <tr>
-                    <td>Lead</td>
-                    <td>13.394027147855</td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-        <div class="col-md-4 ps-5">
-            <table class="table table-striped table-hover table-bordered table-sm">
-                <caption style="font-size:14px; font-weight:bold;">US DOLLAR EXCHANGE RATES</caption>
-                <thead class="table-dark">
-                <tr>
-                    <th scope="col">US Dollar</th>
-                    <th scope="col">1.00 USD</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <td>Euro</td>
-                    <td>0.914552</td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
+<p>Here are actual metal prices for <span th:text="${reportDate}">1.1.1970</span></p>
+<div>
+    <table style="background-color:#eee;border-collapse:collapse;">
+        <thead>
+        <tr>
+            <th style="background-color:#000;color:white;width:50%;border:1px solid #000;text-align:center;">Metal</th>
+            <th style="background-color:#000;color:white;width:50%;border:1px solid #000;text-align:center;">Price in USD</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td style="padding:5px;border:1px solid #000;text-align:center;">Aluminium</td>
+            <td style="padding:5px;border:1px solid #000;text-align:center;">9.105511528029</td>
+        </tr>
+        <tr>
+            <td style="padding:5px;border:1px solid #000;text-align:center;">Copper</td>
+            <td style="padding:5px;border:1px solid #000;text-align:center;">3.171997443513</td>
+        </tr>
+        <tr>
+            <td style="padding:5px;border:1px solid #000;text-align:center;">Lead</td>
+            <td style="padding:5px;border:1px solid #000;text-align:center;">13.394027147855</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<hr/>
+<p>And here are actual US Dollar exchange rates for <span th:text="${reportDate}">1.1.1970</span>.</p>
+<div>
+    <table style="background-color:#eee;border-collapse:collapse;">
+        <thead>
+        <tr>
+            <th style="background-color:#000;color:white;width:50%;border:1px solid #000;text-align:center;">US Dollar</th>
+            <th style="background-color:#000;color:white;width:50%;border:1px solid #000;text-align:center;">1.00 USD</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td style="padding:5px;border:1px solid #000;text-align:center;">Euro</td>
+            <td style="padding:5px;border:1px solid #000;text-align:center;">0.914552</td>
+        </tr>
+        </tbody>
+    </table>
 </div>
 </body>
 
