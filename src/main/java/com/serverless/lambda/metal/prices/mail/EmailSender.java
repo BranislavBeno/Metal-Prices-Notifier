@@ -11,6 +11,7 @@ import software.amazon.awssdk.services.sesv2.model.SesV2Exception;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
@@ -24,9 +25,9 @@ public class EmailSender {
     private final List<String> recipients;
     private final ISpringTemplateEngine emailTemplateEngine;
 
-    public EmailSender(String sender, List<String> recipients, ISpringTemplateEngine emailTemplateEngine) {
+    public EmailSender(String sender, String[] recipients, ISpringTemplateEngine emailTemplateEngine) {
         this.sender = sender;
-        this.recipients = recipients;
+        this.recipients = Arrays.stream(recipients).toList();
         this.emailTemplateEngine = emailTemplateEngine;
     }
 

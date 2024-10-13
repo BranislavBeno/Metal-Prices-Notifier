@@ -7,14 +7,13 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.thymeleaf.spring6.ISpringTemplateEngine;
 
-import java.util.List;
 import java.util.function.Supplier;
 
 @Configuration
 public class FunctionConfiguration {
 
     @Value("${custom.mail.recipients}")
-    private List<String> recipients;
+    private String[] recipients;
     @Value("${custom.mail.sender}")
     private String sender;
 
