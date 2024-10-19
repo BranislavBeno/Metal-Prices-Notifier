@@ -6,3 +6,7 @@ custom:
   mail:
     sender: no-reply@b-l-s.click
     recipients: brano.beno@gmail.com,hugo.rad@gmail.com
+  metal:
+    api:
+      url: "https://metals-api.com/api/latest?base=USD&symbols=LME-ALU,LME-XCU,LME-LEAD&access_key="
+      access-key: "gcbxp9554834vg79vpf3l9onsklz238mq451dyf9s798hre875nblolfw1ay"
