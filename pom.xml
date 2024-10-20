@@ -11,7 +11,7 @@
     <groupId>com.serverless</groupId>
     <artifactId>aws-lambda-first</artifactId>
     <version>1.0.0</version>
-    <name>aws-lambda-first</name>
+    <name>aws-lambda-metal-prices</name>
     <description>Demo project for Spring Boot</description>
     <properties>
         <java.version>21</java.version>
