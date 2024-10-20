@@ -9,7 +9,7 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.serverless</groupId>
-    <artifactId>aws-lambda-first</artifactId>
+    <artifactId>aws-lambda-metal-prices</artifactId>
     <version>1.0.0</version>
     <name>aws-lambda-metal-prices</name>
     <description>Demo project for Spring Boot</description>
