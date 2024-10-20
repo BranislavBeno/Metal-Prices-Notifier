@@ -10,7 +10,7 @@
     </parent>
     <groupId>com.serverless</groupId>
     <artifactId>aws-lambda-first</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0.0</version>
     <name>aws-lambda-first</name>
     <description>Demo project for Spring Boot</description>
     <properties>
