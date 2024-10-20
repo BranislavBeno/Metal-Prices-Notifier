@@ -17,17 +17,23 @@ import java.time.Duration;
 public class MetalExchangeWebClient {
 
     private final WebClient webClient;
+    private final String base;
+    private final String symbols;
+    private final String accessKey;
 
-    public MetalExchangeWebClient(String url, String accessKey) {
+    public MetalExchangeWebClient(String url, String base, String symbols, String accessKey) {
+        this.base = base;
+        this.symbols = symbols;
+        this.accessKey = accessKey;
+
         HttpClient httpClient = HttpClient.create()
                 .option(ChannelOption.CONNECT_TIMEOUT_MILLIS, 2_000)
                 .doOnConnected(connection ->
                         connection.addHandlerLast(new ReadTimeoutHandler(2))
                                 .addHandlerLast(new WriteTimeoutHandler(2)));
 
-        String fullUrl = url + accessKey;
         this.webClient = WebClient.builder()
-                .baseUrl(fullUrl)
+                .baseUrl(url)
                 .defaultHeader(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON_VALUE)
                 .clientConnector(new ReactorClientHttpConnector(httpClient))
                 .build();
@@ -35,6 +41,12 @@ public class MetalExchangeWebClient {
 
     public MetalRates fetchMetalRates() {
         return webClient.get()
+                .uri(b -> b
+                        .path("/latest/")
+                        .queryParam("base", base)
+                        .queryParam("symbols", symbols)
+                        .queryParam("access_key", accessKey)
+                        .build())
                 .retrieve()
                 .onStatus(HttpStatusCode::is4xxClientError, ClientApiUtils::propagateFetchingError)
                 .onStatus(HttpStatusCode::is5xxServerError, ClientApiUtils::propagateServerError)

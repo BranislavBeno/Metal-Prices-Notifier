@@ -9,13 +9,14 @@ import java.math.BigDecimal;
 import java.math.MathContext;
 import java.util.EnumMap;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public record MetalExchangeService(MetalExchangeWebClient webClient) {
 
     private static final Logger LOG = LoggerFactory.getLogger(MetalExchangeService.class);
-    private static final BigDecimal OUNCE_PER_TONNE = new BigDecimal("0.0000311034768");
+    private static final BigDecimal OUNCE_PER_TONNE = new BigDecimal("32154.34083601");
 
-    public Map<MetalType, BigDecimal> getMetalRates() {
+    public Map<String, BigDecimal> getMetalRates() {
         MetalRates rates = webClient.fetchMetalRates();
         LOG.info("Metal rates were successfully fetched on {}.", rates.date());
 
@@ -24,7 +25,7 @@ public record MetalExchangeService(MetalExchangeWebClient webClient) {
         prices.put(MetalType.LME_XCU, computePrice(rates.rates().copper()));
         prices.put(MetalType.LME_LEAD, computePrice(rates.rates().lead()));
 
-        return prices;
+        return prices.entrySet().stream().collect(Collectors.toMap(e -> e.getKey().getLabel(), Map.Entry::getValue));
     }
 
     private BigDecimal computePrice(BigDecimal input) {
@@ -32,6 +33,8 @@ public record MetalExchangeService(MetalExchangeWebClient webClient) {
             return BigDecimal.ZERO;
         }
 
-        return new BigDecimal(1).divide(input.multiply(OUNCE_PER_TONNE), MathContext.DECIMAL32);
+        BigDecimal conversion = input.divide(OUNCE_PER_TONNE, MathContext.DECIMAL32);
+
+        return new BigDecimal(1).divide(conversion, MathContext.DECIMAL32);
     }
 }

@@ -7,50 +7,27 @@
 </head>
 
 <body>
-<p>Hello <span th:text="${name}">buddy</span>,</p>
-<p>Here are actual metal prices for <span th:text="${reportDate}">1.1.1970</span></p>
+<p>Good morning <span th:text="${name}">buddy</span>,</p>
+<p>here are actual metal prices for <span th:text="${reportDate}">1.1.1970</span></p>
 <div>
     <table style="background-color:#eee;border-collapse:collapse;">
         <thead>
-        <tr>
-            <th style="background-color:#000;color:white;width:50%;border:1px solid #000;text-align:center;">Metal</th>
-            <th style="background-color:#000;color:white;width:50%;border:1px solid #000;text-align:center;">Price in USD</th>
+        <tr th:style="'background-color:#000;color:white;width:50%;border:1px solid #000;text-align:center;'">
+            <th>Metal</th>
+            <th th:text="|Price in ${currency}|" />
         </tr>
         </thead>
         <tbody>
-        <tr>
-            <td style="padding:5px;border:1px solid #000;text-align:center;">Aluminium</td>
-            <td style="padding:5px;border:1px solid #000;text-align:center;">9.105511528029</td>
-        </tr>
-        <tr>
-            <td style="padding:5px;border:1px solid #000;text-align:center;">Copper</td>
-            <td style="padding:5px;border:1px solid #000;text-align:center;">3.171997443513</td>
-        </tr>
-        <tr>
-            <td style="padding:5px;border:1px solid #000;text-align:center;">Lead</td>
-            <td style="padding:5px;border:1px solid #000;text-align:center;">13.394027147855</td>
+        <tr th:each="rates : ${metalRates}" th:style="'padding:5px;border:1px solid #000;text-align:center;'">
+            <td th:text="${rates.key}" />
+            <td th:text="${#numbers.formatCurrency(rates.value)}" />
         </tr>
         </tbody>
     </table>
 </div>
+<br>
+<p>Have a nice day!</p>
 <hr/>
-<p>And here are actual US Dollar exchange rates for <span th:text="${reportDate}">1.1.1970</span>.</p>
-<div>
-    <table style="background-color:#eee;border-collapse:collapse;">
-        <thead>
-        <tr>
-            <th style="background-color:#000;color:white;width:50%;border:1px solid #000;text-align:center;">US Dollar</th>
-            <th style="background-color:#000;color:white;width:50%;border:1px solid #000;text-align:center;">1.00 USD</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-            <td style="padding:5px;border:1px solid #000;text-align:center;">Euro</td>
-            <td style="padding:5px;border:1px solid #000;text-align:center;">0.914552</td>
-        </tr>
-        </tbody>
-    </table>
-</div>
 </body>
 
 </html>

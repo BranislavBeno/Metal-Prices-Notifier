@@ -12,8 +12,10 @@ public class MetalExchangeConfiguration {
 
     @Bean
     public MetalExchangeWebClient metalExchangeWebClient(@Value("${custom.metal.api.url}") String url,
+                                                         @Value("${custom.metal.api.base}") String base,
+                                                         @Value("${custom.metal.api.symbols}") String symbols,
                                                          @Value("${custom.metal.api.access-key}") String accessKey) {
-        return new MetalExchangeWebClient(url, accessKey);
+        return new MetalExchangeWebClient(url, base, symbols, accessKey);
     }
 
     @Bean
