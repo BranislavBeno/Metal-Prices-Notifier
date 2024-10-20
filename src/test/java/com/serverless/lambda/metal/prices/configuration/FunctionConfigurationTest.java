@@ -13,6 +13,6 @@ class FunctionConfigurationTest {
 
     @Test
     void getRecipients() {
-        Assertions.assertThat(recipients).containsExactly("brano.beno@gmail.com", "hugo.rad@gmail.com");
+        Assertions.assertThat(recipients).containsExactly("brano.beno@gmail.com", "ivana.chvojkova@gmail.com");
     }
 }
