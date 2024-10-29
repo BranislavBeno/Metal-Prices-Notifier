@@ -4,8 +4,8 @@
   "private": true,
   "scripts": {
     "bootstrap": "cdk bootstrap --app \"../mvnw -e -q compile exec:java -Dexec.mainClass=com.serverless.lambda.cdk.BootstrapApp\"",
-    "app:deploy": "cdk deploy --app \"../mvnw -e -q compile exec:java -Dexec.mainClass=com.serverless.lambda.cdk.AwsCdkApp\" --require-approval never",
-    "app:destroy": "cdk destroy --app \"../mvnw -e -q compile exec:java -Dexec.mainClass=com.serverless.lambda.cdk.AwsCdkApp\" --force --require-approval never"
+    "metal-prices-lambda:deploy": "cdk deploy --app \"..\\mvnw -e -q compile exec:java -Dexec.mainClass=com.serverless.lambda.cdk.MetalPricesLambdaApp\" --require-approval never",
+    "metal-prices-lambda:destroy": "cdk destroy --app \"..\\mvnw -e -q compile exec:java -Dexec.mainClass=com.serverless.lambda.cdk.MetalPricesLambdaApp\" --force --require-approval never"
   },
   "devDependencies": {
     "aws-cdk": "2.164.1"
