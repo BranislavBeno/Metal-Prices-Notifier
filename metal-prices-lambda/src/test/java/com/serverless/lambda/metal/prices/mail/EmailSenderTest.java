@@ -1,5 +1,7 @@
 package com.serverless.lambda.metal.prices.mail;
 
+import java.time.LocalDate;
+import java.util.Locale;
 import org.assertj.core.api.WithAssertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -8,13 +10,11 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.thymeleaf.context.Context;
 import org.thymeleaf.spring6.ISpringTemplateEngine;
 
-import java.time.LocalDate;
-import java.util.Locale;
-
 @SpringBootTest
 class EmailSenderTest implements WithAssertions {
 
     private static Context ctx;
+
     @Autowired
     private ISpringTemplateEngine emailTemplateEngine;
 

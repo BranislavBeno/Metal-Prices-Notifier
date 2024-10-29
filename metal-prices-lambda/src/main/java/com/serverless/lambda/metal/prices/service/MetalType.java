@@ -1,7 +1,9 @@
 package com.serverless.lambda.metal.prices.service;
 
 public enum MetalType {
-    LME_ALU("Aluminium"), LME_XCU("Copper"), LME_LEAD("Lead");
+    LME_ALU("Aluminium"),
+    LME_XCU("Copper"),
+    LME_LEAD("Lead");
 
     private final String label;
 
