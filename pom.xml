@@ -46,6 +46,7 @@
     </build>
 
     <modules>
+        <module>aws-cdk</module>
         <module>metal-prices-lambda</module>
     </modules>
 
