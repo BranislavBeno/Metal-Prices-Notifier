@@ -31,3 +31,10 @@ build/
 
 ### VS Code ###
 .vscode/
+
+# CDK asset staging directory
+aws-cdk/.cdk.staging
+aws-cdk/cdk.out/
+aws-cdk/node_modules
+aws-cdk/cdk.context.json
+aws-cdk/package-lock.json
