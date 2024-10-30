@@ -32,6 +32,8 @@ public class MetalPricesLambdaApp {
                 .resources(List.of(
                         "arn:aws:ses:%s:%s:configuration-set/my-first-configuration-set".formatted(region, accountId),
                         "arn:aws:ses:%s:%s:identity/hugo.rad@gmail.com".formatted(region, accountId),
+                        "arn:aws:ses:%s:%s:identity/brano.beno@gmail.com".formatted(region, accountId),
+                        "arn:aws:ses:%s:%s:identity/ivana.chvojkova@gmail.com".formatted(region, accountId),
                         "arn:aws:ses:%s:%s:identity/b-l-s.click".formatted(region, accountId)))
                 .actions(List.of("ses:SendEmail", "ses:SendRawEmail"))
                 .build();
