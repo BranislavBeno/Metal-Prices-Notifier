@@ -5,7 +5,10 @@ import software.amazon.awscdk.Duration;
 import software.amazon.awscdk.Environment;
 import software.amazon.awscdk.Stack;
 import software.amazon.awscdk.StackProps;
-import software.amazon.awscdk.services.iam.*;
+import software.amazon.awscdk.services.iam.Effect;
+import software.amazon.awscdk.services.iam.IRole;
+import software.amazon.awscdk.services.iam.ManagedPolicy;
+import software.amazon.awscdk.services.iam.PolicyStatement;
 import software.amazon.awscdk.services.lambda.Architecture;
 import software.amazon.awscdk.services.lambda.Function;
 import software.amazon.awscdk.services.lambda.Runtime;
@@ -33,6 +36,17 @@ public class MetalPricesLambdaStack extends Stack {
 
         this.environment = inputParams.environment();
 
+        Function function = getFunction(inputParams);
+        IRole role = function.getRole();
+        if (role != null) {
+            role.addManagedPolicy(ManagedPolicy.fromAwsManagedPolicyName("AmazonSSMReadOnlyAccess"));
+        }
+
+        PolicyStatement allowSendingEmails = getAllowSendingEmails();
+        function.addToRolePolicy(allowSendingEmails);
+    }
+
+    private @NotNull Function getFunction(StackInputParams inputParams) {
         String suffix = LocalDateTime.now().format(DateTimeFormatter.ofPattern("-yyyy-MM-dd-HH-mm-ss"));
         var logGroup = new LogGroup(
                 this,
@@ -42,7 +56,7 @@ public class MetalPricesLambdaStack extends Stack {
                         .retention(RetentionDays.ONE_WEEK)
                         .build());
 
-        var function = Function.Builder.create(this, "MetalPricesLambdaFunction")
+        return Function.Builder.create(this, "MetalPricesLambdaFunction")
                 .functionName(inputParams.stackName())
                 .runtime(Runtime.JAVA_21)
                 .code(software.amazon.awscdk.services.lambda.Code.fromAsset(
@@ -53,14 +67,10 @@ public class MetalPricesLambdaStack extends Stack {
                 .timeout(Duration.seconds(15))
                 .logGroup(logGroup)
                 .build();
+    }
 
-        IManagedPolicy ssmReadOnlyAccess = ManagedPolicy.fromAwsManagedPolicyName("AmazonSSMReadOnlyAccess");
-        IRole role = function.getRole();
-        if (role != null) {
-            role.addManagedPolicy(ssmReadOnlyAccess);
-        }
-
-        PolicyStatement allowSendingEmails = PolicyStatement.Builder.create()
+    private @NotNull PolicyStatement getAllowSendingEmails() {
+        return PolicyStatement.Builder.create()
                 .sid("AllowSendingEmails")
                 .effect(Effect.ALLOW)
                 .resources(List.of(
@@ -71,7 +81,6 @@ public class MetalPricesLambdaStack extends Stack {
                         setUpResource("arn:aws:ses:%s:%s:identity/b-l-s.click")))
                 .actions(List.of("ses:SendEmail", "ses:SendRawEmail"))
                 .build();
-        function.addToRolePolicy(allowSendingEmails);
     }
 
     private @NotNull String setUpResource(String resourceArn) {
