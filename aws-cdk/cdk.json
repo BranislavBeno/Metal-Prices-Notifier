@@ -15,7 +15,7 @@
   "context": {
     "region": "eu-central-1",
     "accountId": "576475760950",
-    "applicationName": "m-p-l",
+    "applicationName": "metal-prices",
     "environmentName": "staging",
     "@aws-cdk/aws-lambda:recognizeLayerVersion": true,
     "@aws-cdk/core:checkSecretUsage": true,
