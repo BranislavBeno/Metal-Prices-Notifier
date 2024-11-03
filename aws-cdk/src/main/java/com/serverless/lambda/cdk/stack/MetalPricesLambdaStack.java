@@ -5,6 +5,10 @@ import software.amazon.awscdk.Duration;
 import software.amazon.awscdk.Environment;
 import software.amazon.awscdk.Stack;
 import software.amazon.awscdk.StackProps;
+import software.amazon.awscdk.services.events.CronOptions;
+import software.amazon.awscdk.services.events.Rule;
+import software.amazon.awscdk.services.events.Schedule;
+import software.amazon.awscdk.services.events.targets.LambdaFunction;
 import software.amazon.awscdk.services.iam.Effect;
 import software.amazon.awscdk.services.iam.IRole;
 import software.amazon.awscdk.services.iam.ManagedPolicy;
@@ -44,6 +48,22 @@ public class MetalPricesLambdaStack extends Stack {
 
         PolicyStatement allowSendingEmails = getAllowSendingEmails();
         function.addToRolePolicy(allowSendingEmails);
+
+        Rule rule = getRule(inputParams);
+        rule.addTarget(LambdaFunction.Builder.create(function).build());
+    }
+
+    private @NotNull Rule getRule(StackInputParams inputParams) {
+        return Rule.Builder.create(this, "MetalPricesEventBridgeRule")
+                .ruleName(inputParams.stackName() + "-rule")
+                .schedule(Schedule.cron(CronOptions.builder()
+                        .minute("0")
+                        .hour("6")
+                        .month("*")
+                        .weekDay("MON-FRI")
+                        .year("*")
+                        .build()))
+                .build();
     }
 
     private @NotNull Function getFunction(StackInputParams inputParams) {
