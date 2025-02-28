@@ -14,7 +14,7 @@
 
     <properties>
         <spring-cloud.version>2024.0.0</spring-cloud.version>
-        <aws-sdk.version>2.30.7</aws-sdk.version>
+        <aws-sdk.version>2.30.30</aws-sdk.version>
     </properties>
 
     <dependencyManagement>
@@ -56,7 +56,7 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
-            <version>3.4.2</version>
+            <version>3.4.3</version>
         </dependency>
         <dependency>
             <groupId>org.thymeleaf.extras</groupId>

@@ -15,7 +15,7 @@
     <properties>
         <java.version>17</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <cdk-lib.version>2.177.0</cdk-lib.version>
+        <cdk-lib.version>2.181.1</cdk-lib.version>
         <cdk-constructs.version>10.4.2</cdk-constructs.version>
     </properties>
 
@@ -24,7 +24,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.13.0</version>
+                <version>3.14.0</version>
                 <configuration>
                     <release>17</release>
                 </configuration>
