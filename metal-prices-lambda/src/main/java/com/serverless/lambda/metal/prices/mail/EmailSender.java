@@ -48,18 +48,6 @@ public class EmailSender {
         send(sesv2Client);
     }
 
-    private String createMailBody(String reportDate) {
-        Map<String, BigDecimal> rates = exchangeService.getMetalRates();
-
-        Context ctx = new Context(Locale.GERMANY);
-        ctx.setVariable("name", "Ivana & Branislav");
-        ctx.setVariable("reportDate", reportDate);
-        ctx.setVariable("metalRates", rates);
-        ctx.setVariable("currency", base);
-
-        return emailTemplateEngine.process("email-template.html", ctx);
-    }
-
     private void send(SesV2Client client) {
         String reportDate = LocalDate.now().format(DATE_FORMATTER_DD_MM_YYYY);
         String mailBody = createMailBody(reportDate);
@@ -80,5 +68,17 @@ public class EmailSender {
             LOGGER.error(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
+    }
+
+    private String createMailBody(String reportDate) {
+        Map<String, BigDecimal> rates = exchangeService.getMetalRates();
+
+        Context ctx = new Context(Locale.GERMANY);
+        ctx.setVariable("name", "Ivana & Branislav");
+        ctx.setVariable("reportDate", reportDate);
+        ctx.setVariable("metalRates", rates);
+        ctx.setVariable("currency", base);
+
+        return emailTemplateEngine.process("email-template.html", ctx);
     }
 }

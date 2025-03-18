@@ -10,10 +10,16 @@ import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public record MetalExchangeService(MetalExchangeWebClient webClient) {
+public final class MetalExchangeService {
 
     private static final Logger LOG = LoggerFactory.getLogger(MetalExchangeService.class);
     private static final BigDecimal OUNCE_PER_TONNE = new BigDecimal("32154.34083601");
+
+    private final MetalExchangeWebClient webClient;
+
+    public MetalExchangeService(MetalExchangeWebClient webClient) {
+        this.webClient = webClient;
+    }
 
     public Map<String, BigDecimal> getMetalRates() {
         MetalRates rates = webClient.fetchMetalRates();
