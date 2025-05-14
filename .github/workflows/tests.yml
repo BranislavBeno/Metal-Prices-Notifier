@@ -1,0 +1,40 @@
+name: Application Tests
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  build-and-test:
+    name: Test the application
+    runs-on: ubuntu-24.04
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v4
+
+    - name: Get required JDK version
+      run: |
+        JDK_VERSION=$(mvn help:evaluate -Dexpression=maven.compiler.release -q -DforceStdout)
+        echo "JDK_VERSION=$JDK_VERSION" >> $GITHUB_ENV      
+
+    - name: Setup Cache
+      uses: actions/cache@v4
+      with:
+        fetch-depth: 0
+        path: ~/.m2/repository
+        key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+        restore-keys: |
+          ${{ runner.os }}-maven-
+
+    - name: Set up JDK
+      uses: actions/setup-java@v4
+      with:
+        java-version: ${{ env.JDK_VERSION }}
+        distribution: zulu
+        java-package: jdk
+
+    - name: Run Tests
+      run: ./mvnw verify
+
+    - name: Run Code Analysis
+      run: ./mvnw jacoco:report
