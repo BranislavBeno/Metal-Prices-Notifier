@@ -21,19 +21,30 @@ public class MetalExchangeWebClient {
     private final String symbols;
     private final String accessKey;
 
-    public MetalExchangeWebClient(SsmParamsProvider paramsProvider) {
-        this.base = paramsProvider.getBase();
-        this.symbols = paramsProvider.getSymbols();
-        this.accessKey = paramsProvider.getAccessKey();
+    public MetalExchangeWebClient(String url, String base, String symbols, String accessKey) {
+        this.webClient = buildWebClient(url);
+        this.base = base;
+        this.symbols = symbols;
+        this.accessKey = accessKey;
+    }
 
+    public MetalExchangeWebClient(SsmParamsProvider paramsProvider) {
+        this(
+                paramsProvider.getUrl(),
+                paramsProvider.getBase(),
+                paramsProvider.getSymbols(),
+                paramsProvider.getAccessKey());
+    }
+
+    private static WebClient buildWebClient(String baseUrl) {
         HttpClient httpClient = HttpClient.create()
                 .option(ChannelOption.CONNECT_TIMEOUT_MILLIS, 2_000)
                 .doOnConnected(connection -> connection
                         .addHandlerLast(new ReadTimeoutHandler(2))
                         .addHandlerLast(new WriteTimeoutHandler(2)));
 
-        this.webClient = WebClient.builder()
-                .baseUrl(paramsProvider.getUrl())
+        return WebClient.builder()
+                .baseUrl(baseUrl)
                 .defaultHeader(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON_VALUE)
                 .clientConnector(new ReactorClientHttpConnector(httpClient))
                 .build();
