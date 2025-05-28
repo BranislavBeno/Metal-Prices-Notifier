@@ -57,7 +57,7 @@ public class MetalPricesLambdaStack extends Stack {
                 .ruleName(inputParams.stackName() + "-rule")
                 .schedule(Schedule.cron(CronOptions.builder()
                         .minute("0")
-                        .hour("6")
+                        .hour("5")
                         .month("*")
                         .weekDay("MON-FRI")
                         .year("*")
