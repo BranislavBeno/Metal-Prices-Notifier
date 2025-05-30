@@ -14,7 +14,7 @@ on:
     types:
       - completed
     branches:
-      - master
+      - main
 
 jobs:
   changes:
