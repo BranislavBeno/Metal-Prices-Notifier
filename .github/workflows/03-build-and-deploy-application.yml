@@ -1,0 +1,109 @@
+# This workflow builds lambda function and then deploys it to AWS.
+name: 03 - Build and deploy lambda function to AWS
+
+env:
+  AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+  AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+  AWS_DEFAULT_REGION: ${{ secrets.AWS_REGION }}
+  APP_ENVIRONMENT_NAME: "staging"
+
+on:
+  workflow_run:
+    workflows:
+      - '02 - Run application tests'
+    types:
+      - completed
+    branches:
+      - master
+
+jobs:
+  changes:
+    name: Detect relevant source changes
+    runs-on: ubuntu-24.04
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    outputs:
+      app: ${{ steps.filter.outputs.app }}
+      cdk: ${{ steps.filter.outputs.cdk }}
+      libs-versions: ${{ steps.filter.outputs.libs-versions }}
+      workflow-deploy: ${{ steps.filter.outputs.workflow-deploy }}
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Run changes detection
+        uses: dorny/paths-filter@v3.0.2
+        id: filter
+        with:
+          filters: |
+            app:
+              - 'metal-prices-lambda/src/main/**'
+            cdk:
+              - 'aws-cdk/src/main/**'
+            libs-versions:
+              - 'pom.xml'
+              - 'aws-cdk/pom.xml'
+              - 'metal-prices-lambda/pom.xml'
+            workflow-deploy:
+              - '.github/workflows/03-build-and-deploy-application.yml'
+
+  build-and-deploy-lambda-function:
+    name: Build and deploy the lambda function to AWS
+    runs-on: ubuntu-24.04
+    needs: changes
+    timeout-minutes: 20
+    concurrency: metal-prices-lambda-deployment
+    if: ${{ needs.changes.outputs.app == 'true' || needs.changes.outputs.cdk == 'true' || needs.changes.outputs.libs-versions == 'true' || needs.changes.outputs.workflow-deploy == 'true' }}
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Get required JDK version
+        run: |
+          JDK_VERSION=$(mvn help:evaluate -Dexpression=maven.compiler.release -q -DforceStdout)
+          echo "JDK_VERSION=$JDK_VERSION" >> $GITHUB_ENV      
+
+      - name: Setup Cache
+        uses: actions/cache@v4
+        with:
+          fetch-depth: 0
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
+
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          java-version: ${{ env.JDK_VERSION }}
+          distribution: zulu
+          java-package: jdk
+
+      - name: Set permissions
+        run: chmod +x mvnw
+
+      - name: Build the application
+        run: ./mvnw -DskipTests package
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: NPM install
+        working-directory: cdk
+        run: |
+          npm i -D aws-cdk@latest
+          rm -fr node_modules package-lock.json cdk.out
+          npm i
+
+      - name: Destroy previous lambda function
+        working-directory: aws-cdk
+        run: npm run metal-prices-lambda:destroy -- -c environmentName=${APP_ENVIRONMENT_NAME}
+
+      - name: Deploy new lambda function
+        working-directory: aws-cdk
+        run: npm run metal-prices-lambda:deploy -- -c environmentName=${APP_ENVIRONMENT_NAME}

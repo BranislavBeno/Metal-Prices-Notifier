@@ -1,0 +1,53 @@
+# This is a one-off workflow to set up everything we need to deploy docker images
+# with CDK. This workflow deploys everything that is not specific to a certain
+# environment (staging, prod, ...).
+name: 01 - Manually bootstrap the CDK Environment in AWS
+
+env:
+  AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+  AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+  AWS_DEFAULT_REGION: ${{ secrets.AWS_REGION }}
+
+on:
+  workflow_dispatch
+
+jobs:
+  bootstrap:
+    name: Bootstrap CDK
+    runs-on: ubuntu-24.04
+    if: github.ref == 'refs/heads/master'
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Get required JDK version
+        run: |
+          JDK_VERSION=$(mvn help:evaluate -Dexpression=maven.compiler.release -q -DforceStdout)
+          echo "JDK_VERSION=$JDK_VERSION" >> $GITHUB_ENV      
+
+      - name: Setup Cache
+        uses: actions/cache@v4
+        with:
+          fetch-depth: 0
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
+
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          java-version: ${{ env.JDK_VERSION }}
+          distribution: zulu
+          java-package: jdk
+
+      - name: NPM install
+        working-directory: cdk
+        run: |
+          npm i -D aws-cdk@latest
+          rm -fr node_modules package-lock.json cdk.out
+          npm i
+
+      - name: Deploy CDK bootstrap stack
+        working-directory: cdk
+        run: npm run bootstrap
