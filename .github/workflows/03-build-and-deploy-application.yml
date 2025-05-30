@@ -94,7 +94,7 @@ jobs:
           aws-region: ${{ secrets.AWS_REGION }}
 
       - name: NPM install
-        working-directory: cdk
+        working-directory: aws-cdk
         run: |
           npm i -D aws-cdk@latest
           rm -fr node_modules package-lock.json cdk.out
@@ -105,5 +105,6 @@ jobs:
         run: npm run metal-prices-lambda:destroy -- -c environmentName=${APP_ENVIRONMENT_NAME}
 
       - name: Deploy new lambda function
+        if: ${{ !cancelled() }}
         working-directory: aws-cdk
         run: npm run metal-prices-lambda:deploy -- -c environmentName=${APP_ENVIRONMENT_NAME}
