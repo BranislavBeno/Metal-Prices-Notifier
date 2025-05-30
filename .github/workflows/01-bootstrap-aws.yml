@@ -42,12 +42,12 @@ jobs:
           java-package: jdk
 
       - name: NPM install
-        working-directory: cdk
+        working-directory: aws-cdk
         run: |
           npm i -D aws-cdk@latest
           rm -fr node_modules package-lock.json cdk.out
           npm i
 
       - name: Deploy CDK bootstrap stack
-        working-directory: cdk
+        working-directory: aws-cdk
         run: npm run bootstrap
