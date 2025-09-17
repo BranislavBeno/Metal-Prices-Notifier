@@ -32,7 +32,7 @@
         <plugins>
             <plugin>
                 <artifactId>maven-failsafe-plugin</artifactId>
-                <version>3.5.3</version>
+                <version>3.5.4</version>
                 <configuration>
                     <includes>
                         <include>**/*IT</include>
@@ -72,7 +72,7 @@
             <plugin>
                 <groupId>org.openrewrite.maven</groupId>
                 <artifactId>rewrite-maven-plugin</artifactId>
-                <version>6.17.0</version>
+                <version>6.18.0</version>
                 <configuration>
                     <activeRecipes>
                         <recipe>org.openrewrite.java.RemoveUnusedImports</recipe>
@@ -86,12 +86,12 @@
                     <dependency>
                         <groupId>org.openrewrite.recipe</groupId>
                         <artifactId>rewrite-migrate-java</artifactId>
-                        <version>3.16.0</version>
+                        <version>3.17.1</version>
                     </dependency>
                     <dependency>
                         <groupId>org.openrewrite.recipe</groupId>
                         <artifactId>rewrite-spring</artifactId>
-                        <version>6.13.0</version>
+                        <version>6.14.0</version>
                     </dependency>
                 </dependencies>
             </plugin>
