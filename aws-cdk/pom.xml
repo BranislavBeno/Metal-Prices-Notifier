@@ -14,7 +14,7 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <cdk-lib.version>2.215.0</cdk-lib.version>
+        <cdk-lib.version>2.216.0</cdk-lib.version>
         <cdk-constructs.version>10.4.2</cdk-constructs.version>
     </properties>
 
@@ -23,7 +23,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.14.0</version>
+                <version>3.14.1</version>
                 <configuration>
                     <release>${java.version}</release>
                 </configuration>
