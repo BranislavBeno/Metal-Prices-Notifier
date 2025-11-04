@@ -14,11 +14,11 @@
 
     <properties>
         <spring-cloud.version>2025.0.0</spring-cloud.version>
-        <aws-sdk.version>2.36.1</aws-sdk.version>
+        <aws-sdk.version>2.37.4</aws-sdk.version>
         <testcontainers-bom.version>2.0.1</testcontainers-bom.version>
         <java8time.version>3.0.4.RELEASE</java8time.version>
         <mockserver-client.version>5.15.0</mockserver-client.version>
-        <mockwebserver.version>5.2.1</mockwebserver.version>
+        <mockwebserver.version>5.3.0</mockwebserver.version>
     </properties>
 
     <dependencyManagement>
