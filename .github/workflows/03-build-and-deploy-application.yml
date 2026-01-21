@@ -28,7 +28,7 @@ jobs:
       workflow-deploy: ${{ steps.filter.outputs.workflow-deploy }}
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
         with:
           fetch-depth: 2
 
@@ -57,7 +57,7 @@ jobs:
     if: ${{ needs.changes.outputs.app == 'true' || needs.changes.outputs.cdk == 'true' || needs.changes.outputs.libs-versions == 'true' || needs.changes.outputs.workflow-deploy == 'true' }}
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
 
       - name: Get required JDK version
         run: |
