@@ -50,7 +50,7 @@
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
+            <artifactId>spring-boot-starter-webmvc</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -94,14 +94,12 @@
         </dependency>
         <dependency>
             <groupId>org.testcontainers</groupId>
-            <artifactId>junit-jupiter</artifactId>
-            <version>1.21.4</version>
+            <artifactId>testcontainers-junit-jupiter</artifactId>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.testcontainers</groupId>
-            <artifactId>mockserver</artifactId>
-            <version>1.21.4</version>
+            <artifactId>testcontainers-mockserver</artifactId>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -117,7 +115,7 @@
         </dependency>
         <dependency>
             <groupId>com.squareup.okhttp3</groupId>
-            <artifactId>mockwebserver</artifactId>
+            <artifactId>mockwebserver3-junit5</artifactId>
             <version>${mockwebserver.version}</version>
         </dependency>
     </dependencies>
