@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.5.7</version>
+        <version>3.5.9</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
@@ -72,7 +72,7 @@
             <plugin>
                 <groupId>org.openrewrite.maven</groupId>
                 <artifactId>rewrite-maven-plugin</artifactId>
-                <version>6.23.0</version>
+                <version>6.28.0</version>
                 <configuration>
                     <activeRecipes>
                         <recipe>org.openrewrite.java.RemoveUnusedImports</recipe>
@@ -86,12 +86,12 @@
                     <dependency>
                         <groupId>org.openrewrite.recipe</groupId>
                         <artifactId>rewrite-migrate-java</artifactId>
-                        <version>3.21.2</version>
+                        <version>3.26.0</version>
                     </dependency>
                     <dependency>
                         <groupId>org.openrewrite.recipe</groupId>
                         <artifactId>rewrite-spring</artifactId>
-                        <version>6.18.0</version>
+                        <version>6.23.0</version>
                     </dependency>
                 </dependencies>
             </plugin>
