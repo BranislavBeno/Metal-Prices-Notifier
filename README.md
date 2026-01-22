@@ -1,5 +1,5 @@
-[![](https://img.shields.io/badge/Java-21-blue)](/pom.xml)
-[![](https://img.shields.io/badge/Spring%20Boot-3.5.9-blue)](/pom.xml)
+[![](https://img.shields.io/badge/Java-25-blue)](/pom.xml)
+[![](https://img.shields.io/badge/Spring%20Boot-4.0.1-blue)](/pom.xml)
 [![](https://img.shields.io/badge/Testcontainers-2.0.3-blue)](/metal-prices-lambda/pom.xml)
 [![](https://img.shields.io/badge/Maven-3.9.12-blue)](https://img.shields.io/badge/maven-v3.9.12-blue)
 [![](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
@@ -131,7 +131,7 @@ The generated email includes:
 #### Function Characteristics
 - **Runtime**: Java
 - **Handler**: Spring Cloud Function adapter (`FunctionInvoker::handleRequest`)
-- **Architecture**: x86_64
+- **Architecture**: ARM_64
 - **Memory**: 512 MB
 - **Timeout**: 15 seconds
 - **Packaging**: Single fat JAR (uber-jar) with all dependencies
@@ -149,7 +149,7 @@ The Lambda function is defined as a `Supplier<Void>`:
 The `MetalPricesLambdaStack` provisions:
 
 **Lambda Function:**
-- Java 21 runtime environment
+- Java 25 runtime environment
 - Automated deployment from built JAR
 - CloudWatch log group with 1-week retention
 - Timestamped log group names for version tracking

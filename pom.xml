@@ -16,8 +16,8 @@
     <packaging>pom</packaging>
 
     <properties>
-        <java.version>21</java.version>
-        <maven.compiler.release>21</maven.compiler.release>
+        <java.version>25</java.version>
+        <maven.compiler.release>25</maven.compiler.release>
     </properties>
 
     <build>
@@ -77,7 +77,7 @@
                     <activeRecipes>
                         <recipe>org.openrewrite.java.RemoveUnusedImports</recipe>
                         <recipe>org.openrewrite.java.OrderImports</recipe>
-                        <recipe>org.openrewrite.java.migrate.UpgradeToJava21</recipe>
+                        <recipe>org.openrewrite.java.migrate.UpgradeToJava25</recipe>
                         <recipe>org.openrewrite.java.spring.boot4.SpringBootProperties_4_0</recipe>
                         <recipe>org.openrewrite.java.spring.boot4.UpgradeSpringBoot_4_0</recipe>
                     </activeRecipes>

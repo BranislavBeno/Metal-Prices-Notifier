@@ -77,11 +77,11 @@ public class MetalPricesLambdaStack extends Stack {
 
         return Function.Builder.create(this, "MetalPricesLambdaFunction")
                 .functionName(inputParams.stackName())
-                .runtime(Runtime.JAVA_21)
+                .runtime(Runtime.JAVA_25)
                 .code(software.amazon.awscdk.services.lambda.Code.fromAsset(
                         "../metal-prices-lambda/target/metal-prices-lambda-1.0.0-aws.jar"))
                 .handler("org.springframework.cloud.function.adapter.aws.FunctionInvoker::handleRequest")
-                .architecture(Architecture.X86_64)
+                .architecture(Architecture.ARM_64)
                 .memorySize(512)
                 .timeout(Duration.seconds(15))
                 .logGroup(logGroup)
