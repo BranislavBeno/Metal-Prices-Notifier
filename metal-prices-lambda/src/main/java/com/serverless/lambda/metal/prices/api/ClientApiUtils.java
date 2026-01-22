@@ -15,6 +15,6 @@ public class ClientApiUtils {
 
     static Mono<Throwable> propagateFetchingError(ClientResponse response) {
         Mono<String> errorMsg = response.bodyToMono(String.class);
-        return errorMsg.flatMap(msg -> Mono.error(new FetchException(SERVER_ERROR_OCCURRED)));
+        return errorMsg.flatMap(_ -> Mono.error(new FetchException(SERVER_ERROR_OCCURRED)));
     }
 }
