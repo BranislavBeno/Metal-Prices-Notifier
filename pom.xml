@@ -42,7 +42,7 @@
             <plugin>
                 <groupId>com.diffplug.spotless</groupId>
                 <artifactId>spotless-maven-plugin</artifactId>
-                <version>3.2.0</version>
+                <version>3.2.1</version>
                 <configuration>
                     <java>
                         <importOrder/>
@@ -72,7 +72,7 @@
             <plugin>
                 <groupId>org.openrewrite.maven</groupId>
                 <artifactId>rewrite-maven-plugin</artifactId>
-                <version>6.28.0</version>
+                <version>6.28.1</version>
                 <configuration>
                     <activeRecipes>
                         <recipe>org.openrewrite.java.RemoveUnusedImports</recipe>
@@ -91,7 +91,7 @@
                     <dependency>
                         <groupId>org.openrewrite.recipe</groupId>
                         <artifactId>rewrite-spring</artifactId>
-                        <version>6.23.0</version>
+                        <version>6.23.1</version>
                     </dependency>
                 </dependencies>
             </plugin>
