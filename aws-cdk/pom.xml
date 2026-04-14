@@ -14,7 +14,7 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <cdk-lib.version>2.248.0</cdk-lib.version>
+        <cdk-lib.version>2.249.0</cdk-lib.version>
         <cdk-constructs.version>10.6.0</cdk-constructs.version>
     </properties>
 
