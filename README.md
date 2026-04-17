@@ -1,7 +1,7 @@
 [![](https://img.shields.io/badge/Java-25-blue)](/pom.xml)
 [![](https://img.shields.io/badge/Spring%20Boot-4.0.5-blue)](/pom.xml)
 [![](https://img.shields.io/badge/Testcontainers-2.0.4-blue)](/metal-prices-lambda/pom.xml)
-[![](https://img.shields.io/badge/Maven-3.9.14-blue)](https://img.shields.io/badge/maven-v3.9.14-blue)
+[![](https://img.shields.io/badge/Maven-3.9.15-blue)](https://img.shields.io/badge/maven-v3.9.15-blue)
 [![](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
 # Metal prices notifier
