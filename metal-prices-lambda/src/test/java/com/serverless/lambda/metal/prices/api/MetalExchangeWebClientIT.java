@@ -24,7 +24,7 @@ import org.testcontainers.utility.DockerImageName;
 class MetalExchangeWebClientIT implements WithAssertions {
 
     private static final MockServerContainer MOCK_SERVER =
-            new MockServerContainer(DockerImageName.parse("mockserver/mockserver"));
+            new MockServerContainer(DockerImageName.parse("mockserver/mockserver:5.15.0"));
     private static final String URL;
     private static final String BASE = "base=USD";
     private static final String SYMBOLS = "symbols=LME-ALU,LME-XCU,LME-LEAD";
