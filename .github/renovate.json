@@ -13,7 +13,7 @@
     {
       "groupName" : "all non-major dependencies",
       "groupSlug" : "all-minor-patch",
-      "matchPackagePatterns" : [
+      "matchPackageNames" : [
         "*"
       ],
       "matchUpdateTypes" : [
@@ -23,14 +23,15 @@
     }
   ],
   "ignorePaths": [],
-  "regexManagers": [
+  "customManagers": [
     {
-      "fileMatch": [
-        "app/src/test/java/.+\\.java$",
-        "cdk/src/main/java/.+\\.java$"
+      "customType": "regex",
+      "managerFilePatterns": [
+        "/metal-prices-lambda/src/test/java/.+\\.java$/",
+        "/aws-cdk/src/main/java/.+\\.java$/"
       ],
       "matchStrings": [
-        "\"(?<depName>.*?):(?<currentValue>.*?)\""
+        "\"(?<depName>[a-z0-9.-]+/[a-z0-9.-]+):(?<currentValue>[\\w.-]+)\""
       ],
       "datasourceTemplate": "docker"
     }
