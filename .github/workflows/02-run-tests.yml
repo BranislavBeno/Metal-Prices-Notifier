@@ -37,6 +37,9 @@ jobs:
     - name: Set permissions
       run: chmod +x mvnw
 
+    - name: Setup TestLens
+      uses: testlens-app/setup-testlens@v1
+
     - name: Run Tests
       run: ./mvnw verify
 
