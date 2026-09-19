@@ -19,7 +19,7 @@ on:
 jobs:
   changes:
     name: Detect relevant source changes
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
     outputs:
       app: ${{ steps.filter.outputs.app }}
@@ -50,7 +50,7 @@ jobs:
 
   build-and-deploy-lambda-function:
     name: Build and deploy the lambda function to AWS
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     needs: changes
     timeout-minutes: 20
     concurrency: metal-prices-lambda-deployment
