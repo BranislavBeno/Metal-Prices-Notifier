@@ -14,8 +14,9 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <cdk-lib.version>2.268.0</cdk-lib.version>
+        <cdk-lib.version>2.270.0</cdk-lib.version>
         <cdk-constructs.version>10.8.1</cdk-constructs.version>
+        <jetbrains.annotations.version>26.1.0</jetbrains.annotations.version>
     </properties>
 
     <build>
@@ -41,6 +42,12 @@
             <groupId>software.constructs</groupId>
             <artifactId>constructs</artifactId>
             <version>${cdk-constructs.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jetbrains</groupId>
+            <artifactId>annotations</artifactId>
+            <version>${jetbrains.annotations.version}</version>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
 
