@@ -13,7 +13,7 @@
     <description>Spring Boot project deployed as AWS Lambda function</description>
 
     <properties>
-        <spring-cloud.version>2025.1.3</spring-cloud.version>
+        <spring-cloud.version>2026.0.0</spring-cloud.version>
         <aws-sdk.version>2.55.1</aws-sdk.version>
         <testcontainers-bom.version>2.0.5</testcontainers-bom.version>
         <java8time.version>3.0.4.RELEASE</java8time.version>
